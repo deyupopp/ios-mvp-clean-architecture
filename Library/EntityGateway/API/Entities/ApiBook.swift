@@ -55,7 +55,7 @@ struct ApiBook: InitializableWithData, InitializableWithJson {
 			let title = json["Title"] as? String,
 			let author = json["Author"] as? String,
 			let pages = json["Pages"] as? Int,
-			let releaseDate = json["ReleaseDate"] as? Date else {
+            let releaseDate = json.valueAsDate(for: "ReleaseDate") else {
 				throw NSError.createPraseError()
 		}
 		

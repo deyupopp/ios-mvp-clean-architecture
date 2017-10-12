@@ -44,6 +44,23 @@ public extension Dictionary where Key: ExpressibleByStringLiteral, Value: Any  {
 			return Data()
 		}
 	}
+    
+    /**
+     Helper method that returns a deserialized date for the given key
+     
+     - parameter key: The key of the date in the dictionary.
+     - parameter format: The date format. Default value is yyyy-MM-dd.
+     - returns: the `Date` value, or nil if key does not exist.
+     */
+    public func valueAsDate(for key: Key, with format: String = "yyyy-MM-dd") -> Date? {
+        guard let value = self[key] as? String else {
+            return nil
+        }
+    
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.date(from: value)
+    }
 }
 
 /**

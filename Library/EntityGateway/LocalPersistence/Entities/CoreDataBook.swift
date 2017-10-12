@@ -36,7 +36,7 @@ extension CoreDataBook {
 		            isbn: isbn ?? "",
 		            title: title ?? "",
 		            author: author ?? "",
-		            releaseDate: releaseDate as? Date,
+		            releaseDate: releaseDate as Date?,
 		            pages: Int(pages))
 	}
 	
@@ -48,7 +48,10 @@ extension CoreDataBook {
 		title = parameters.title
 		author = parameters.author
 		pages = Int32(parameters.pages)
-		releaseDate = parameters.releaseDate != nil ? NSDate(timeIntervalSince1970: parameters.releaseDate!.timeIntervalSince1970) : nil
+        
+        if let releaseDateFromParameters = parameters.releaseDate {
+            releaseDate = NSDate(timeIntervalSince1970: releaseDateFromParameters.timeIntervalSince1970)
+        }
 	}
 	
 	func populate(with book: Book) {
